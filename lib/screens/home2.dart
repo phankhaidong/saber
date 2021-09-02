@@ -7,7 +7,7 @@ import 'package:hexcolor/hexcolor.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
-	//taolao
+
   @override
   _HomeState createState() => _HomeState();
 }

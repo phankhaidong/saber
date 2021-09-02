@@ -21,6 +21,7 @@ class _AddReviewState extends State<AddReview>
   CollectionReference review_posts =
       FirebaseFirestore.instance.collection('reviewpost');
   CollectionReference user = FirebaseFirestore.instance.collection('users');
+  CollectionReference books = FirebaseFirestore.instance.collection('bookBase');
   @override
   void initState() {
     super.initState();
@@ -62,6 +63,13 @@ class _AddReviewState extends State<AddReview>
           });
           //increase book's review_counter using stream builder ?
           //increase user works counter
+          Database.bookBase.read().then((value) => Database.books = value);
+          var index =
+              Database.books.indexWhere((element) => element['isbn'] == isbn);
+          Database.books[index]['Review_count']++;
+          books
+              .doc(isbn)
+              .update({'Review_count': Database.books[index]['Review_count']});
           Navigator.of(context).pop();
         },
         label: const Text('Post'),

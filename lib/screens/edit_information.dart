@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:authentification/database.dart';
+import 'package:authentification/screens/setting.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
@@ -8,9 +9,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart';
 
-class Edit_Infor extends StatefulWidget {
+class EditInfor extends StatefulWidget {
   final String text;
-  Edit_Infor({Key? key, required this.text}) : super(key: key);
+  EditInfor({Key? key, required this.text}) : super(key: key);
 //Edit_Infor({Key? key, required this.text}) : super(key: key);
   @override
   _Edit_InforState createState() => _Edit_InforState();
@@ -18,14 +19,15 @@ class Edit_Infor extends StatefulWidget {
 
 late var con;
 
-class _Edit_InforState extends State<Edit_Infor> {
+class _Edit_InforState extends State<EditInfor> {
   _Edit_InforState({Key? key});
   late var storageReference;
   late PickedFile _imageFile;
   final ImagePicker _picker = ImagePicker();
   bool key = false;
 
-  late DateTime _dateTime = Database.thisUserInfo.Birth;
+  //TODO: fix here
+  DateTime _dateTime = DateTime.parse(Database.thisUserInfo.Birth);
   Future<Null> _selectDate(BuildContext context) async {
     DateTime? _date = await showDatePicker(
         context: context,
@@ -53,10 +55,15 @@ class _Edit_InforState extends State<Edit_Infor> {
   var _aboutContent;
   @override
   void initState() {
+    _imageFile = PickedFile('');
     Avatar = Database.thisUserInfo.Image;
     follower_count = Database.thisUserInfo.Follower_count;
     following_count = Database.thisUserInfo.Following_count;
-
+    _aboutContent = Database.thisUserInfo.About;
+    _name.text = Database.thisUserInfo.Fullname;
+    _nickname.text = Database.thisUserInfo.Aka;
+    _birth.text = Database.thisUserInfo.Birth;
+    _about.text = Database.thisUserInfo.About;
     super.initState();
   }
 
@@ -283,7 +290,7 @@ class _Edit_InforState extends State<Edit_Infor> {
                               onPressed: () {
                                 setState(() {
                                   _selectDate(context);
-                                  Database.thisUserInfo.Birth = _dateTime;
+                                  //Database.thisUserInfo.Birth = _dateTime;
                                 });
                               },
                             ),
@@ -345,19 +352,21 @@ class _Edit_InforState extends State<Edit_Infor> {
                           t += _dateTime.day.toString();
                         Map up = {
                           'Full_name': _name.text,
-                          'NickName': _nickname.text,
+                          'Nickname': _nickname.text,
                           'Birth': t,
                           'Avatar': Avatar,
                           'About': _about.text,
                           'Follower_count': follower_count,
-                          'Following_count': following_count
+                          'Following_count': following_count,
+                          'Works': Database.thisUserInfo.Works
                         };
-                        print(_userI[0]['id_user']);
+                        print(Database.thisUserInfo.Id);
                         profile
-                            .doc(_userI[0]['id_user'])
+                            .doc(Database.thisUserInfo.Id)
                             .update({'Information': up});
-
                         Navigator.pop(con);
+                        // Navigator.push(context,
+                        //     MaterialPageRoute(builder: (context) => Setting()));
                       },
                     ));
               },

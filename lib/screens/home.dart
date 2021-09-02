@@ -100,6 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 87,
                   //add image here
                   child: Image(
+                      fit: BoxFit.fill,
                       image: NetworkImage(Database.books[Database.books
                           .indexWhere((element) =>
                               element['isbn'] ==
@@ -194,8 +195,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget pageUI() {
     return Scaffold(
-      body: Container(
-        color: HexColor('E1F0ED'),
+        body: Container(
+      color: HexColor('E1F0ED'),
+      child: SingleChildScrollView(
         child: Column(
           children: <Widget>[
             Row(
@@ -264,7 +266,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         child: Text(
-                          'Now',
+                          'New',
                           style: TextStyle(fontSize: 24),
                         ),
                         onPressed: () {},
@@ -302,6 +304,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-    );
+    ));
   }
 }

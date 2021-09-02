@@ -15,7 +15,7 @@ class _ImageTestState extends State<ImageTest> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: Edit_Infor(
+      child: EditInfor(
         text: Database.thisUserInfo.Id,
       ),
     );

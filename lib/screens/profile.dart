@@ -11,6 +11,22 @@ class ProfileScreen extends StatefulWidget {
   _ProfileScreenState createState() => _ProfileScreenState();
 }
 
+Widget Post(BuildContext context, int index) {
+  List mylist = [];
+  //TODO:
+  //Database.posts.where((element['']) => mylist = element);
+  return Container(
+    child: Column(
+      children: [
+        Text(
+          Database.posts[index][''],
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+      ],
+    ),
+  );
+}
+
 class _ProfileScreenState extends State<ProfileScreen> {
   //List<bool> _selections = List.generate(2, (_) => false);
   Widget _buildScreen() {
@@ -151,6 +167,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Divider(
             color: Colors.grey,
           ),
+          ListView.separated(
+              itemBuilder: (BuildContext context, int index) {
+                return Post(context, index);
+              },
+              separatorBuilder: (BuildContext context, int index) =>
+                  const Divider(),
+              itemCount: Database.posts.length)
           //build list view for post
         ],
       ),

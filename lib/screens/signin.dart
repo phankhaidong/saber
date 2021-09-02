@@ -150,17 +150,10 @@ class _SignInScreenState extends State<SignInScreen> {
                               userI[0]['infor']['About'],
                               userI[0]['infor']['Nickname'],
                               userI[0]['infor']['Birth'],
-                              // userI[0]['infor']['Avatar'],
-                              // userI[0]['infor']['Follower_count'],
-                              // userI[0]['infor']['Following_count'],
-                              // userI[0]['infor']['Works']);
-                              "https://images.squarespace-cdn.com/content/v1/54b7b93ce4b0a3e130d5d232/1519987020970-8IQ7F6Z61LLBCX85A65S/icon.png?format=1000w",
-                              0,
-                              0,
-                              0);
-                          print("Fullname " + userI[0]['infor']['Full_name']);
-                          print("About " + userI[0]['infor']['About']);
-                          print("Nickname " + userI[0]['infor']['Nickname']);
+                              userI[0]['infor']['Avatar'],
+                              userI[0]['infor']['Follower_count'],
+                              userI[0]['infor']['Following_count'],
+                              userI[0]['infor']['Works']);
                           Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
                                   builder: (context) => MainScreen()));

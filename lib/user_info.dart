@@ -3,11 +3,12 @@ class UserInformation {
   late String Fullname;
   late String About;
   late String Aka;
-  late DateTime Birth;
+  late String Birth;
   late String Image;
   late int Follower_count;
   late int Following_count;
   late int Works;
+  late List WorkList = [];
 
   UserInformation(
     this.Id,

@@ -1,6 +1,8 @@
 import 'package:authentification/database.dart';
 import 'package:authentification/reybo_app_icons.dart';
+import 'package:authentification/screens/Edit_Information.dart';
 import 'package:authentification/screens/signin.dart';
+import 'package:authentification/test.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 //import 'package:authentification/screens/profile.dart';
 import 'package:flutter/material.dart';
@@ -63,8 +65,8 @@ class _SettingState extends State<Setting> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => Edit_Infor(
-                                text: "TJlwUb6IZfg6DRPWxUYYGkhHqKp2")));
+                            builder: (context) =>
+                                EditInfor(text: Database.thisUserInfo.Id)));
                   } on FirebaseAuthException catch (error) {
                     print(error.toString());
                   }
