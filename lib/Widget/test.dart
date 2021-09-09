@@ -1,5 +1,5 @@
-import 'package:authentification/bookInfo.dart';
-import 'package:authentification/database.dart';
+import 'package:authentification/Models/database.dart';
+
 import 'package:authentification/screens/edit_information.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

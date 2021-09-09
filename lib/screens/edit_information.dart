@@ -1,6 +1,5 @@
 import 'dart:io';
-import 'package:authentification/database.dart';
-import 'package:authentification/screens/setting.dart';
+import 'package:authentification/Models/database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';

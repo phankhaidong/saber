@@ -1,4 +1,4 @@
-import 'package:authentification/search_widget.dart';
+import 'package:authentification/Widget/search_widget.dart';
 import 'package:flutter/material.dart';
 
 class LibraryScreen extends StatefulWidget {
@@ -32,11 +32,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
             child: Icon(Icons.add),
           ),
           body: Column(
-            children: <Widget>[
-              //TextField(),
-              buildSearch(),
-              //Add list view all list book of user
-            ],
+            children: <Widget>[],
           )),
     );
   }

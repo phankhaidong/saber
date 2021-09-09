@@ -1,7 +1,6 @@
-import 'package:authentification/database.dart';
+import 'package:authentification/Models/database.dart';
 import 'package:authentification/reybo_app_icons.dart';
 import 'package:authentification/screens/setting.dart';
-//import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -9,22 +8,6 @@ class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
-}
-
-Widget Post(BuildContext context, int index) {
-  List mylist = [];
-  //TODO:
-  //Database.posts.where((element['']) => mylist = element);
-  return Container(
-    child: Column(
-      children: [
-        Text(
-          Database.posts[index][''],
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-      ],
-    ),
-  );
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
@@ -167,13 +150,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Divider(
             color: Colors.grey,
           ),
-          ListView.separated(
-              itemBuilder: (BuildContext context, int index) {
-                return Post(context, index);
-              },
-              separatorBuilder: (BuildContext context, int index) =>
-                  const Divider(),
-              itemCount: Database.posts.length)
+          // ListView.separated(
+          //     itemBuilder: (BuildContext context, int index) {
+          //       return Post(context, index);
+          //     },
+          //     separatorBuilder: (BuildContext context, int index) =>
+          //         const Divider(),
+          //     itemCount: Database.posts.length)
           //build list view for post
         ],
       ),

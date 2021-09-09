@@ -1,23 +1,75 @@
-import 'package:authentification/Models/database.dart';
-import 'package:authentification/Widget/search_widget.dart';
-import 'package:authentification/Widget/search_widget1.dart';
-import 'package:authentification/screens/add_review.dart';
+import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
+import 'package:authentification/Models/database.dart';
+import 'package:authentification/screens/add_review.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-class CreatePostScreen extends StatefulWidget {
-  const CreatePostScreen({Key? key}) : super(key: key);
+class SearchWidget1 extends StatefulWidget {
+  const SearchWidget1({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  _CreatePostScreenState createState() => _CreatePostScreenState();
+  _SearchWidget1State createState() => _SearchWidget1State();
 }
 
-class _CreatePostScreenState extends State<CreatePostScreen> {
-  int item_count = Database.books.length;
+class _SearchWidget1State extends State<SearchWidget1> {
+  TextEditingController _searchController = TextEditingController();
+  late Future resultsLoaded;
+  List _allResults = [];
+  List _resultsList = [];
+  searchResultsList() {
+    var showResults = [];
+
+    if (_searchController.text != "") {
+      for (var tripSnapshot in _allResults) {
+        var title = tripSnapshot['Title'].toString().toLowerCase();
+
+        if (title.contains(_searchController.text.toLowerCase())) {
+          showResults.add(tripSnapshot);
+        }
+      }
+    } else {
+      showResults = List.from(_allResults);
+    }
+    setState(() {
+      _resultsList = showResults;
+    });
+  }
+
+  getUsersPastTripsStreamSnapshots() async {
+    setState(() {
+      _allResults = Database.books;
+    });
+    searchResultsList();
+    return "complete";
+  }
+
+  _onSearchChanged() {
+    searchResultsList();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _searchController.addListener(_onSearchChanged);
+  }
+
+  @override
+  void dispose() {
+    _searchController.removeListener(_onSearchChanged);
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    resultsLoaded = getUsersPastTripsStreamSnapshots();
+  }
+
   Widget bookCard(BuildContext context, int index) {
-    //final book = BookList[index];
     return Container(
       decoration: BoxDecoration(
           color: HexColor("D0ECEC"),
@@ -35,7 +87,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                   width: 79,
                   height: 124,
                   child: Image(
-                    image: NetworkImage(Database.books[index]['Image_url']),
+                    image: NetworkImage(_resultsList[index]['Image_url']),
                     fit: BoxFit.fill,
                   ),
                   //add image here
@@ -52,7 +104,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                         child: SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: Text(
-                            Database.books[index]['Title']
+                            _resultsList[index]['Title']
                                 .toString()
                                 .toUpperCase(),
                             overflow: TextOverflow.fade,
@@ -63,7 +115,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                       Padding(
                           padding: EdgeInsets.only(top: 5, bottom: 10),
                           child: Text(
-                            Database.books[index]['Author']
+                            _resultsList[index]['Author']
                                 .toString()
                                 .toUpperCase(),
                             style: TextStyle(fontSize: 12, color: Colors.grey),
@@ -81,14 +133,13 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                             onPressed: () {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => AddReview(
-                                      bookCode: Database.books[index]
-                                          ['isbn'])));
+                                      bookCode: _resultsList[index]['isbn'])));
                             }),
                       ),
                       Padding(
                           padding: EdgeInsets.only(top: 10),
                           child: Text(
-                            Database.books[index]['Review_count'].toString() +
+                            _resultsList[index]['Review_count'].toString() +
                                 " reviews have been posted",
                             style: TextStyle(
                                 fontSize: 12, color: HexColor("2E979D")),
@@ -104,25 +155,35 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
     );
   }
 
-  Widget buildSearch() => SearchWidget(text: 'none', hintText: 'Find book');
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text(
-          'Select a book to review',
-          style: TextStyle(color: Colors.black),
-        ),
+    return Container(
+      height: 650,
+      child: Column(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(left: 30.0, right: 30.0),
+            child: TextField(
+              controller: _searchController,
+              decoration: InputDecoration(
+                icon: Icon(Icons.search, color: Colors.black),
+                hintText: 'Find book',
+                hintStyle: TextStyle(color: Colors.grey),
+                border: InputBorder.none,
+              ),
+            ),
+          ),
+          Expanded(
+              child: ListView.separated(
+                  separatorBuilder: (BuildContext context, int index) =>
+                      const Divider(),
+                  padding: EdgeInsets.all(10),
+                  itemCount: _resultsList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return bookCard(context, index);
+                  })),
+        ],
       ),
-      body: Container(
-          child: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            SearchWidget1(),
-          ],
-        ),
-      )),
     );
   }
 }

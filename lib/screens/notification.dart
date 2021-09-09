@@ -1,9 +1,8 @@
-import 'package:authentification/postview.dart';
+import 'package:authentification/Widget/notif.dart';
+import 'package:authentification/Widget/postview.dart';
 import 'package:authentification/reybo_app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-
-import '../notif.dart';
 
 class NotificationsScreen extends StatefulWidget {
   const NotificationsScreen({Key? key}) : super(key: key);

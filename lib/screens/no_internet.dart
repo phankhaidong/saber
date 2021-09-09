@@ -1,4 +1,4 @@
-import 'package:authentification/connectivity_provider.dart';
+import 'package:authentification/Widget/connectivity_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';

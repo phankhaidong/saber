@@ -1,6 +1,7 @@
-import 'package:authentification/database.dart';
-import 'package:authentification/rating.dart';
-import 'package:authentification/search_widget.dart';
+import 'package:authentification/Models/database.dart';
+import 'package:authentification/Widget/rating.dart';
+import 'package:authentification/Widget/search_widget.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';

@@ -1,9 +1,9 @@
-import 'package:authentification/bookInfo.dart';
-import 'package:authentification/post.dart';
-import 'package:authentification/post_base.dart';
-import 'package:authentification/user_info.dart';
+import 'package:authentification/Models/bookInfo.dart';
+import 'package:authentification/Models/post.dart';
+import 'package:authentification/Models/post_base.dart';
+import 'package:authentification/Models/user_info.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 class Database {
   static List books = [];

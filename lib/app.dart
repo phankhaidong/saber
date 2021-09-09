@@ -1,9 +1,6 @@
 import 'package:authentification/connectivity_provider.dart';
-import 'package:authentification/screens/home.dart';
-import 'package:authentification/screens/home2.dart';
 import 'package:authentification/screens/main_screen.dart';
-import 'package:authentification/screens/register.dart';
-import 'package:authentification/welcome.dart';
+import 'package:authentification/screens/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -24,7 +21,9 @@ class _AppState extends State<App> {
       ],
       child: MaterialApp(
         title: 'Home',
-        home: Welcome(),
+        home: Container(
+          child: Welcome(),
+        ),
       ),
     );
   }

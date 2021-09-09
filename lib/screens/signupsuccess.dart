@@ -1,12 +1,11 @@
-import 'package:authentification/database.dart';
+import 'package:authentification/Models/database.dart';
+import 'package:authentification/Widget/connectivity_provider.dart';
 import 'package:authentification/screens/main_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
-
-import '../connectivity_provider.dart';
 
 class SignUpSuccess extends StatefulWidget {
   const SignUpSuccess({

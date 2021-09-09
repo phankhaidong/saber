@@ -1,7 +1,7 @@
 //import 'package:authentification/connectivity_provider.dart';
 import 'package:authentification/screens/register.dart';
 import 'package:authentification/screens/signin.dart';
-import 'package:authentification/welcome.dart';
+import 'package:authentification/screens/welcome.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';

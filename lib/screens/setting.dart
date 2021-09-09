@@ -1,10 +1,10 @@
-import 'package:authentification/database.dart';
+import 'package:authentification/Models/database.dart';
 import 'package:authentification/reybo_app_icons.dart';
 import 'package:authentification/screens/Edit_Information.dart';
 import 'package:authentification/screens/signin.dart';
-import 'package:authentification/test.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
-//import 'package:authentification/screens/profile.dart';
+
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 

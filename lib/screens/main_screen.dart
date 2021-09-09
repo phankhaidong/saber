@@ -1,6 +1,8 @@
-import 'package:authentification/bookInfo.dart';
-import 'package:authentification/database.dart';
-import 'package:authentification/post_base.dart';
+import 'package:authentification/Models/bookInfo.dart';
+import 'package:authentification/Models/database.dart';
+import 'package:authentification/Models/post_base.dart';
+import 'package:authentification/Widget/connectivity_provider.dart';
+
 import 'package:authentification/screens/createPost.dart';
 import 'package:authentification/screens/home.dart';
 import 'package:authentification/screens/library.dart';
@@ -11,7 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
-import '../connectivity_provider.dart';
 import '../reybo_app_icons.dart';
 import 'no_internet.dart';
 

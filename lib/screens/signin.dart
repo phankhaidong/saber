@@ -1,8 +1,9 @@
-import 'package:authentification/database.dart';
-import 'package:authentification/screens/edit_information.dart';
+import 'package:authentification/Models/database.dart';
+import 'package:authentification/Models/user_info.dart';
+
 import 'package:authentification/screens/main_screen.dart';
 import 'package:authentification/screens/register.dart';
-import 'package:authentification/user_info.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';

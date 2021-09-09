@@ -1,9 +1,8 @@
-import 'dart:collection';
+import 'package:authentification/Models/database.dart';
+import 'package:authentification/Models/user_info.dart';
 
-import 'package:authentification/database.dart';
 import 'package:authentification/screens/signin.dart';
 import 'package:authentification/screens/signupsuccess.dart';
-import 'package:authentification/user_info.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';

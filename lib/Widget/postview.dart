@@ -1,8 +1,4 @@
-import 'package:authentification/database.dart';
-import 'package:authentification/main.dart';
-import 'package:authentification/post.dart';
-import 'package:authentification/reybo_app_icons.dart';
-import 'package:authentification/screens/notification.dart';
+import 'package:authentification/Models/database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
