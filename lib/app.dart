@@ -1,4 +1,4 @@
-import 'package:authentification/connectivity_provider.dart';
+import 'package:authentification/Widget/connectivity_provider.dart';
 import 'package:authentification/screens/main_screen.dart';
 import 'package:authentification/screens/welcome.dart';
 import 'package:flutter/material.dart';

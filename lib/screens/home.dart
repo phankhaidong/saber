@@ -2,6 +2,7 @@ import 'package:authentification/Models/database.dart';
 import 'package:authentification/Widget/postview.dart';
 import 'package:authentification/Widget/rating.dart';
 import 'package:authentification/Widget/search_widget.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -12,18 +13,41 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  //TODO: build real search
   Widget buildSearch() =>
       SearchWidget(text: 'none', hintText: 'Find book, author, tags,...');
-  //List posts = [];
+  List ownerInfo = [];
+  @override
   void initState() {
+    ownerInfo = Database.postOwner;
     super.initState();
-    //Provider.of<ConnectivityProvider>(context, listen: false).startMonitoring();
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
+
   Widget postCard(BuildContext context, int index) {
+    String time = Database.posts[index]['time'].year.toString() + '-';
+    if (Database.posts[index]['time'].month < 10) {
+      time += '0' + Database.posts[index]['time'].month.toString() + '-';
+    } else
+      time += Database.posts[index]['time'].month.toString() + '-';
+    if (Database.posts[index]['time'].day < 10) {
+      time += '0' + Database.posts[index]['time'].day.toString();
+    } else
+      time += Database.posts[index]['time'].day.toString();
+    time += ' ' + Database.posts[index]['time'].hour.toString() + 'h';
+    time += ' ' + Database.posts[index]['time'].minute.toString() + 'm';
     return GestureDetector(
         child: Container(
-      color: Colors.white,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15),
+        color: Colors.white,
+      ),
       padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
       height: 250,
       child: Column(
@@ -36,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 size: 18,
                 color: Colors.grey,
               ),
-              Expanded(child: Text(Database.posts[index]['time'])),
+              Text(time),
             ],
           ),
           Row(
@@ -45,14 +69,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: EdgeInsets.only(right: 10, bottom: 10),
                 child: CircleAvatar(
                   radius: 20,
-                  backgroundImage: null,
+                  backgroundImage:
+                      NetworkImage(ownerInfo[index]['infor']['Avatar']),
                   backgroundColor: HexColor("41BEC5"),
                 ),
               ),
               Expanded(
                 child: RichText(
                     text: TextSpan(
-                        text: Database.posts[index]['Owner'],
+                        //text: Database.posts[index]['Owner'],
+                        text: ownerInfo[index]['infor']['Full_name'],
                         style: TextStyle(
                             fontWeight: FontWeight.bold, color: Colors.black),
                         children: [
@@ -174,7 +200,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => ViewPostScreen(
-                            code: Database.posts[index]['postId'])));
+                              code: Database.posts[index]['postId'],
+                              owner: ownerInfo[index]['infor']['Full_name'],
+                              ownerAvatar: ownerInfo[index]['infor']['Avatar'],
+                            )));
                   })
             ],
           ),
@@ -220,7 +249,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: CircleAvatar(
                         //import image
                         radius: 22,
-                        backgroundImage: null,
+                        backgroundImage:
+                            NetworkImage(Database.thisUserInfo.Image),
                         backgroundColor: HexColor("41BEC5"),
                       ),
                     ),
@@ -279,7 +309,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Padding(
                     padding: EdgeInsets.only(left: 20),
                     child: Text(
-                      "Tredning posts",
+                      "Trending posts",
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ))

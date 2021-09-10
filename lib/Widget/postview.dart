@@ -6,14 +6,23 @@ import 'package:hexcolor/hexcolor.dart';
 
 class ViewPostScreen extends StatefulWidget {
   final String code;
-  const ViewPostScreen({Key? key, required this.code}) : super(key: key);
+  final String owner;
+  final String ownerAvatar;
+  const ViewPostScreen(
+      {Key? key,
+      required this.code,
+      required this.owner,
+      required this.ownerAvatar})
+      : super(key: key);
   @override
   _ViewPostScreenState createState() => _ViewPostScreenState();
 }
 
 class _ViewPostScreenState extends State<ViewPostScreen> {
   Color likeIcon = Colors.grey;
-  Widget Comment(BuildContext context, int index) {
+  int like_count = 0;
+  Widget comment(BuildContext context, int index) {
+    like_count = Database.posts[index]['Like_count'];
     return Container(
         child: Row(
       children: <Widget>[
@@ -25,6 +34,7 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
             child: CircleAvatar(
               //import image
               radius: 17,
+              //TODO: comment_owner_avatar
               backgroundImage: null,
               backgroundColor: HexColor("41BEC5"),
             ),
@@ -60,7 +70,7 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
           backgroundColor: Colors.white,
           centerTitle: true,
           title: Text(
-            Database.posts[index]['Owner'],
+            widget.owner,
             style: TextStyle(color: Colors.black),
           ),
           iconTheme: IconThemeData(color: Colors.black),
@@ -85,8 +95,9 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                           Container(
                             child: CircleAvatar(
                               child: CircleAvatar(
-                                  //backgroundImage: Database.posts[index]['postID'].toString().,
-                                  ),
+                                backgroundImage:
+                                    NetworkImage(widget.ownerAvatar),
+                              ),
                             ),
                           ),
                           Container(
@@ -95,7 +106,7 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Text(
-                                  Database.posts[index]['Owner'],
+                                  widget.owner,
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                                 Row(
@@ -106,7 +117,8 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                                     //         .inMinutes
                                     //         .toString() +
                                     //     " m"),
-                                    Text(Database.posts[index]['time']),
+                                    Text(Database.posts[index]['time']
+                                        .toString()),
                                     Icon(Icons.timer)
                                   ],
                                 ),
@@ -137,28 +149,30 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                       children: <Widget>[
                         IconButton(
                             onPressed: () {
-                              setState(() {
-                                if (likeIcon == Colors.grey) {
+                              if (likeIcon == Colors.grey) {
+                                //TODO: count up
+                                setState(() {
                                   likeIcon = Colors.blue;
-                                  //TODO: count up
-                                  //Database.posts[index]['Like_count'];
-                                } else {
+                                  Database.posts[index]['Like_count']++;
+                                  like_count =
+                                      Database.posts[index]['Like_count'];
+                                });
+                              } else {
+                                //TODO: count down
+                                setState(() {
                                   likeIcon = Colors.grey;
-                                  //TODO: count down
-                                  // if (Database.posts[index]['Like_count'] > 0) {
-                                  //   Database.posts[index]['Like_count']--;
-                                  // }
-                                }
-                              });
+                                  Database.posts[index]['Like_count']--;
+                                  like_count =
+                                      Database.posts[index]['Like_count'];
+                                });
+                              }
                             },
                             icon: Icon(
                               Icons.thumb_up,
                               color: likeIcon,
                             )),
                         Container(
-                            child: Text(
-                                Database.posts[index]['Like_count'].toString() +
-                                    " likes")),
+                            child: Text(like_count.toString() + " likes")),
                       ],
                     ),
                     Row(
@@ -183,7 +197,7 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                   height: 150,
                   child: ListView.separated(
                       itemBuilder: (BuildContext context, int index) {
-                        return Comment(context, index);
+                        return comment(context, index);
                       },
                       separatorBuilder: (BuildContext context, int index) =>
                           const Divider(),
@@ -194,7 +208,9 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                   decoration: InputDecoration(
                       suffixIcon: IconButton(
                         icon: Icon(Icons.send),
-                        onPressed: () {},
+                        onPressed: () {
+                          //Database.posts[index]['Comments']
+                        },
                       ),
                       hintText: 'Leave commment ...',
                       border: OutlineInputBorder(

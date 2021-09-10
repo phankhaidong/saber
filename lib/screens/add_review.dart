@@ -1,4 +1,5 @@
 import 'package:authentification/Models/database.dart';
+import 'package:authentification/screens/main_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
@@ -56,7 +57,7 @@ class _AddReviewState extends State<AddReview>
             'Created': DateTime.now(),
             'Content': text,
             'View': 0.toInt(),
-            'Owner': Database.thisUserInfo.Fullname,
+            'Owner': Database.thisUserInfo.Id,
           });
           user.doc(Database.thisUserInfo.Id).update({
             'Works_list': FieldValue.arrayUnion([idpost]),
@@ -70,7 +71,9 @@ class _AddReviewState extends State<AddReview>
           books
               .doc(isbn)
               .update({'Review_count': Database.books[index]['Review_count']});
-          Navigator.of(context).pop();
+          //Navigator.of(context).pop();
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => MainScreen()));
         },
         label: const Text('Post'),
         icon: const Icon(Icons.thumb_up),
@@ -81,6 +84,7 @@ class _AddReviewState extends State<AddReview>
           "Create a review",
           style: style,
         ),
+        iconTheme: IconThemeData(color: Colors.grey),
         backgroundColor: Colors.white,
         elevation: 0,
         bottom: TabBar(

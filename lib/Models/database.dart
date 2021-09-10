@@ -1,4 +1,5 @@
 import 'package:authentification/Models/bookInfo.dart';
+import 'package:authentification/Models/owner_base.dart';
 import 'package:authentification/Models/post.dart';
 import 'package:authentification/Models/post_base.dart';
 import 'package:authentification/Models/user_info.dart';
@@ -8,10 +9,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 class Database {
   static List books = [];
   static List posts = [];
+  static List postOwner = [];
   static late FirebaseAuth Auth;
   static late UserInformation thisUserInfo;
   static late BookBase bookBase;
   static late PostBase postBase;
+  static late OwnerBase ownerBase;
   static List<Post> PostList = [
     Post(
         "0",
@@ -23,7 +26,4 @@ class Database {
         false),
     Post("1", "Diu", "Ua hong hieu", DateTime.now(), 36, 6, false),
   ];
-  // void findpost(String isbn) {
-  //   var result = books.indexWhere((element) => false)((element) => element['isbn'] == "");
-  // }
 }

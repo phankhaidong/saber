@@ -349,6 +349,11 @@ class _Edit_InforState extends State<EditInfor> {
                           t += '0' + _dateTime.day.toString();
                         } else
                           t += _dateTime.day.toString();
+                        Database.thisUserInfo.Fullname = _name.text;
+                        Database.thisUserInfo.Aka = _nickname.text;
+                        Database.thisUserInfo.About = _about.text;
+                        Database.thisUserInfo.Image = Avatar;
+                        Database.thisUserInfo.Birth = t;
                         Map up = {
                           'Full_name': _name.text,
                           'Nickname': _nickname.text,

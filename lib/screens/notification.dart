@@ -104,7 +104,12 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         setState(() {
           notif.watched = true;
           Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => ViewPostScreen(code: notif.post_code)));
+              //TODO: fix here
+              builder: (context) => ViewPostScreen(
+                    code: notif.post_code,
+                    owner: "",
+                    ownerAvatar: "",
+                  )));
         });
       },
     );

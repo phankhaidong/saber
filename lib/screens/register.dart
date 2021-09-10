@@ -22,6 +22,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confpasswordController = TextEditingController();
+  var _passwordVisible = true;
+  var _passwordVisibleConfirm = true;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   //String _email = '', _password = '', _cpassword = '';
   bool _validate = false;
@@ -150,11 +152,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 padding: EdgeInsets.fromLTRB(30, 20, 30, 0),
                 child: TextFormField(
                   controller: _passwordController,
-                  obscureText: true,
+                  obscureText: _passwordVisible,
                   style: TextStyle(
                     color: Colors.black87,
                   ),
                   decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _passwordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                        color: Theme.of(context).primaryColorDark,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _passwordVisible = !_passwordVisible;
+                        });
+                      },
+                    ),
                     contentPadding: EdgeInsets.fromLTRB(30, 18, 0, 18),
                     hintText: 'Enter password',
                     errorText: _validate ? 'Please enter your pass' : null,
@@ -193,12 +208,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 //Confirm password
                 padding: EdgeInsets.fromLTRB(30, 20, 30, 0),
                 child: TextFormField(
-                  obscureText: true,
+                  obscureText: _passwordVisibleConfirm,
                   controller: _confpasswordController,
                   style: TextStyle(
                     color: Colors.black87,
                   ),
                   decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _passwordVisibleConfirm
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                        color: Theme.of(context).primaryColorDark,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _passwordVisibleConfirm = !_passwordVisibleConfirm;
+                        });
+                      },
+                    ),
                     contentPadding: EdgeInsets.fromLTRB(30, 18, 0, 18),
                     hintText: 'Confirm password',
                     errorText:
@@ -228,7 +256,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 )),
             Padding(
-              padding: EdgeInsets.fromLTRB(40, 150, 40, 0),
+              padding: EdgeInsets.fromLTRB(40, 100, 40, 0),
               child: ElevatedButton(
                   child: Text(
                     'Register',

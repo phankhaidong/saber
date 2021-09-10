@@ -1,6 +1,7 @@
 import 'package:authentification/Models/database.dart';
 import 'package:authentification/reybo_app_icons.dart';
 import 'package:authentification/screens/Edit_Information.dart';
+import 'package:authentification/screens/main_screen.dart';
 import 'package:authentification/screens/signin.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -32,7 +33,8 @@ class _SettingState extends State<Setting> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.of(context).pop();
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => MainScreen()));
             },
             icon: Icon(ReyboApp.arrow),
             color: HexColor("C4C4C4"),

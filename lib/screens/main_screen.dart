@@ -1,5 +1,6 @@
 import 'package:authentification/Models/bookInfo.dart';
 import 'package:authentification/Models/database.dart';
+import 'package:authentification/Models/owner_base.dart';
 import 'package:authentification/Models/post_base.dart';
 import 'package:authentification/Widget/connectivity_provider.dart';
 
@@ -41,6 +42,13 @@ class _MainScreenState extends State<MainScreen> {
             Database.posts = value;
           })
         });
+    Database.ownerBase = OwnerBase();
+    Database.ownerBase.initialize();
+    Database.ownerBase.read().then((value) => {
+          setState(() {
+            Database.postOwner = value;
+          })
+        });
   }
 
   int currentIndex = 2;
@@ -60,12 +68,7 @@ class _MainScreenState extends State<MainScreen> {
         builder: (context, model, child) {
           if (model.isOnline == false || model.isOnline == true) {
             return model.isOnline
-                ? Scaffold(
-                    body: IndexedStack(
-                      index: currentIndex,
-                      children: screens,
-                    ),
-                  )
+                ? Scaffold(body: screens[currentIndex])
                 : NoInternet();
           }
           return Container(

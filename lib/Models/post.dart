@@ -7,6 +7,7 @@ class Post {
   late DateTime date;
   late int like_count;
   late int comment_count;
+  //late List<String> comments;
   //extra
   //List<String> who_comment = [];
   //List<String> who_like = [];

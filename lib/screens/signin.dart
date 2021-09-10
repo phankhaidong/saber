@@ -20,7 +20,7 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreenState extends State<SignInScreen> {
   String _email = '', _password = '';
-  bool _passwordVisible = false;
+  bool _passwordVisible = true;
   final auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   CollectionReference users = FirebaseFirestore.instance.collection('users');
@@ -89,7 +89,7 @@ class _SignInScreenState extends State<SignInScreen> {
             Padding(
                 padding: EdgeInsets.fromLTRB(30, 25, 30, 0),
                 child: TextField(
-                  obscureText: true,
+                  obscureText: _passwordVisible,
                   onChanged: (value) {
                     setState(() {
                       _password = value.trim();
@@ -114,8 +114,17 @@ class _SignInScreenState extends State<SignInScreen> {
                     fillColor: HexColor("E5E5E5"),
                     filled: true,
                     suffixIcon: IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.visibility),
+                      icon: Icon(
+                        _passwordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                        color: Theme.of(context).primaryColorDark,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _passwordVisible = !_passwordVisible;
+                        });
+                      },
                     ),
                   ),
                 )),
@@ -140,8 +149,6 @@ class _SignInScreenState extends State<SignInScreen> {
                       var user = FirebaseAuth.instance.currentUser;
                       Database.Auth = auth;
                       if (user != null) {
-                        print(user.uid);
-                        //Database.thisUserInfo.Id = user.uid;
                         try {
                           List userI = [];
                           await read(user.uid).then((value) => userI = value);

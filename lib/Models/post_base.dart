@@ -18,11 +18,11 @@ class PostBase {
             "Owner": doc['Owner'],
             "Comments": doc['Comments'],
             "Commenter": doc['Commenters'],
-            "Like_count": doc['Like_count'].toString(),
+            "Like_count": doc['Like_count'],
             "Likers": doc['Likers'],
             "Comment_count": doc['Comment_count'],
             "ISBN": doc['ISBN'],
-            "time": doc['Created'].toDate().toString(),
+            "time": doc['Created'].toDate(),
             "Content": doc['Content'],
             "View": doc['View'],
           };
